@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=SUSE:wght@100..800&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Calibri', sans-serif; 
+}
+
+.sgci {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-container {
+    position: absolute; 
+    top: 2.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.title {
+    font-size: 2.2vw; /* Aumenta o tamanho da fonte */
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+    padding: 10px 20px;
+    border-radius: 10px; 
+    display: inline-block; 
+}
+
+
+
+.form {
+    top: 10px; 
+    width: 45vw;  
+    height: 65vh; 
+    background-color: rgba(214, 214, 214, 0.85);
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    padding: 30px;
+    background-color: rgba(250, 250, 250, 0.8); 
+    border-radius: 20px; 
+    position: relative; 
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+}
+
+.button {
+    width: 6vw; 
+    height: 13vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: transform 0.3s ease, background-color 0.3s ease; 
+    position: relative; 
+    overflow: hidden; 
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5); 
+    opacity: 0; 
+    animation: fadeInOpacity 2s forwards; 
+}
+
+.button:hover {
+    transform: scale(1.1); 
+}
+
+.button-image {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+}
+
+.LogisticaInterna > img {
+    width: 80%;
+    height: 80%;
+}
+
+.iStop > img {
+    width: 71%;
+    height: 67%;
+}
+
+.Caldeira > img {
+    width: 71%;
+    height: 67%;
+}
+
+p {
+    margin-top: 8px; 
+    font-size: 1.1vw;
+    font-weight: 600;
+    color: #333; 
+}
+
+.logo-container {
+    top: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 3;  
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.lar-logo {
+    width: 35%; 
+    height: auto;
+    object-fit: contain; 
+}
+
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

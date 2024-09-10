@@ -1,0 +1,84 @@
+import lar_florestal from './img/lar-florestal.png';
+import logistica_interna from './img/logisticaInterna.png';
+import parada from './img/parada.png';
+import lar from './img/logo-lar.png';
+import caldeira from './img/boiler.png';
+import picador from './img/picador-de-madeira.png';
+
+import './stilo.css';
+
+const Home = () => {
+    function redirect(url) {
+        window.location.href = url;
+    }
+
+    function executeInstaller() {
+        const installerPath = "C:\\Users\\LAR\\Downloads\\Oda\\SGCI\\logistica\\Setup Logística 1.1.exe";
+        window.location.href = installerPath;
+    }
+
+    return (
+        <div className="sgci">
+        <div className="title-container">
+            <h1 className="title">Sistema de gerenciamento do complexo Industrial</h1>
+        </div>
+            <div className="form">
+                <div className="icon-container">
+                    <div className="button LarFlorestal" onClick={() => redirect('http://192.168.156.17:3000/home')}>
+                        <img src={lar_florestal} alt="Lar Florestal" className="button-image" />
+                    </div>
+                    <p>Lar Florestal</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button LogisticaInterna" onClick={executeInstaller}>
+                        <img src={logistica_interna} alt="Logística Interna" className="button-image" />
+                    </div>
+                    <p>Logística Interna</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button iStop" onClick={() => redirect('/iStop')}>
+                        <img src={parada} alt="Paradas" className="button-image" />
+                    </div>
+                    <p>iStop</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button Caldeira" onClick={() => redirect('/FormCaldeira')}>
+                        <img src={caldeira} alt="Produção Caldeira" className="button-image" />
+                    </div>
+                    <p>Produção Caldeira</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button iStop" onClick={() => redirect('/FormCavaco')}>
+                        <img src={picador} alt="Produção Caldeira" className="button-image" />
+                    </div>
+                    <p>Produção Cavaco</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button iStop" onClick={() => redirect('')}>
+                    </div>
+                    <p>Biodiesel</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button iStop" onClick={() => redirect('')}>
+                    </div>
+                    <p>Sistema</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button iStop" onClick={() => redirect('')}>
+                    </div>
+                    <p>Sistema</p>
+                </div>
+                <div className="icon-container">
+                    <div className="button iStop" onClick={() => redirect('')}>
+                    </div>
+                    <p>Sistema</p>
+                </div>
+                <div className="logo-container">
+                    <img src={lar} alt="Logo Lar" className="lar-logo" />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Home;

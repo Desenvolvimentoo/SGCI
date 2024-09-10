@@ -1,0 +1,181 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('./img/industria.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Faz a imagem de fundo ficar fixa */
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    flex-direction: column;
+    background-color: #f0f0f0;
+}
+
+
+select {
+    text-transform: uppercase;
+}
+
+
+.voltar-button {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.voltar {
+    width: 30px; 
+    height: 30px;
+}
+
+
+.logo {
+    width: 2vw; 
+    height: auto;
+    margin: 0 auto; 
+    display: block; 
+}
+
+.form-container {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 30vw;
+    position: relative;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-pair {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px; /* Adiciona espaço entre os pares */
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    width: 100%; /* Garante que todos os inputs tenham o mesmo tamanho */
+    box-sizing: border-box; /* Inclui padding e border no tamanho total */
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.obs-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.obs-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+}
+
+.obs-group textarea {
+    resize: vertical;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px;
+}
+
+.buttons button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1em;
+}
+
+.buttons button:hover {
+    background-color: #072f5afd;
+}
+
+.buttons button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    margin-bottom: 15px; 
+  }
+  
+  .checkbox-group div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-group input {
+    margin-right: 5px; 
+  }
+  
+
+@media (max-width: 800px) { 
+    .form-pair {
+        flex-direction: column;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .form-container {
+        width: 60vw;
+    }
+}
