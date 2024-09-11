@@ -4,7 +4,7 @@ import parada from './img/parada.png';
 import lar from './img/logo-lar.png';
 import caldeira from './img/boiler.png';
 import picador from './img/picador-de-madeira.png';
-
+import { useNavigate } from 'react-router-dom';
 import './stilo.css';
 
 const Home = () => {
@@ -16,6 +16,13 @@ const Home = () => {
         const installerPath = "C:\\Users\\LAR\\Downloads\\Oda\\SGCI\\logistica\\Setup Logística 1.1.exe";
         window.location.href = installerPath;
     }
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('isLoggedIn');
+        navigate('/');
+    };
 
     return (
         <div className="sgci">
@@ -77,6 +84,7 @@ const Home = () => {
                     <img src={lar} alt="Logo Lar" className="lar-logo" />
                 </div>
             </div>
+            <button className="logout-button" onClick={handleLogout}>Sair</button>
         </div>
     );
 };
