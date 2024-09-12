@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import logo_lar from './img/logo_lar.png';
 import voltar from './img/voltar.png';
@@ -17,9 +17,24 @@ const FormCavaco = () => {
     outros_custos: "",
     observacoes: '',
     matricula: '',
+    nome: '',  
     responsavel: '',
     turno: ''
-  });
+});
+
+
+useEffect(() => {
+  const nome = localStorage.getItem('nome');
+  const matricula = localStorage.getItem('matricula');
+
+  if (nome && matricula) {
+      setFormData((prevData) => ({
+          ...prevData,
+          nome,
+          matricula,
+      }));
+  }
+}, []);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -40,13 +55,14 @@ const FormCavaco = () => {
       consumo_energia_cavaco,
       outros_custos,
       observacoes,
+      nome,
       matricula,
       responsavel,
       turno
     } = formData;
 
     if (
-      !data || !consumo_cavaco || !consumo_bagaco || !consumo_residuo ||
+      !nome || !data || !consumo_cavaco || !consumo_bagaco || !consumo_residuo ||
       !lenha_utilizada || !cavaco_produzido || !consumo_energia_cavaco ||
       !outros_custos || !observacoes || !matricula || !responsavel || !turno
     ) {
@@ -75,7 +91,6 @@ const FormCavaco = () => {
           consumo_energia_cavaco: "",
           outros_custos: "",
           observacoes: '',
-          matricula: '',
           responsavel: '',
           turno: ''
         });
@@ -98,6 +113,12 @@ const FormCavaco = () => {
         <h2>Registro de Produção de Cavaco</h2>
         
         <form onSubmit={handleSubmit}>
+
+          <div className="form-group">
+            <label htmlFor="nome">Usuário</label>
+            <input type="text" id="nome" readOnly value={formData.nome} onChange={handleChange} />
+          </div>
+
           <div className="form-group">
             <label htmlFor="data">Data</label>
             <input type="date" id="data" value={formData.data} onChange={handleChange} />

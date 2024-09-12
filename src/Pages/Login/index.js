@@ -11,8 +11,21 @@ const Login = () => {
 
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
-        if (isLoggedIn) {
-            navigate('/home');
+        const loginTime = localStorage.getItem('loginTime');
+
+        if (isLoggedIn && loginTime) {
+            const currentTime = new Date().getTime();
+            const oneHour =  60 * 60 * 1000;
+
+            if (currentTime - loginTime > oneHour) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('loginTime');
+                localStorage.removeItem('matricula');
+                localStorage.removeItem('nome');
+                setMessage('Sessão expirada. Faça login novamente.');
+            } else {
+                navigate('/home');
+            }
         }
     }, [navigate]);
 
@@ -25,27 +38,30 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ matricula, senha })
             });
-
+    
             const data = await response.json();
-
+            console.log(data); 
+    
             if (data.success) {
-                setMessage('Logado com sucesso');
-                localStorage.setItem('matricula', data.matricula); 
+                setMessage('Logado com sucesso'); 
                 localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('matricula', matricula);
+                localStorage.setItem('nome', data.nome);
+                localStorage.setItem('loginTime', new Date().getTime()); 
+    
                 navigate('/home', { replace: true });
             
                 setTimeout(() => {
                     window.location.reload();
                 }, 100);
-            }
-             else {
+            } else {
                 setMessage('Matrícula ou senha incorreta');
             }
         } catch (error) {
             setMessage('Erro ao tentar logar');
         }
     };
-
+    
     const handleNavigateToRegister = () => {
         navigate('/cadastrarUsuario'); 
     };

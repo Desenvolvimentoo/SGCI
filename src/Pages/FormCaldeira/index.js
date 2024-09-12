@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import logo_lar from './img/logo_lar.png';
 import voltar from './img/voltar.png';
@@ -14,6 +14,7 @@ const FormCaldeira = () => {
     consumo_vapor_operacional: '',
     consumo_energia_picador: '',
     observacoes: '',
+    nome: '',
     matricula: '',
     responsavel: '',
     turno: ''
@@ -26,6 +27,19 @@ const FormCaldeira = () => {
       [id]: value
     });
   };
+
+  useEffect(() => {
+    const nome = localStorage.getItem('nome');
+    const matricula = localStorage.getItem('matricula');
+  
+    if (nome && matricula) {
+        setFormData((prevData) => ({
+            ...prevData,
+            nome,
+            matricula,
+        }));
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,12 +54,14 @@ const FormCaldeira = () => {
       consumo_vapor_operacional,
       consumo_energia_picador,
       observacoes,
+      nome,
       matricula,
       responsavel,
       turno
     } = formData;
 
     if (
+      !nome ||
       !data ||
       !producao_energia ||
       !producao_vapor ||
@@ -82,7 +98,6 @@ const FormCaldeira = () => {
           consumo_vapor_operacional: '',
           consumo_energia_picador: '',
           observacoes: '',
-          matricula: '',
           responsavel: '',
           turno: ''
         });
@@ -104,6 +119,11 @@ const FormCaldeira = () => {
         <h2>Registro de produção da Caldeira</h2>
 
         <form onSubmit={handleSubmit}>
+        <div className="form-group">
+            <label htmlFor="nome">Usuário</label>
+            <input type="text" id="nome" readOnly value={formData.nome} onChange={handleChange} />
+          </div>
+
           <div className="form-group">
             <label htmlFor="data">Data</label>
             <input type="date" id="data" value={formData.data} onChange={handleChange} />

@@ -33,6 +33,21 @@ const FormParadas = () => {
             });
     }, []);
 
+    useEffect(() => {
+        const nome = localStorage.getItem('nome');
+        const matricula = localStorage.getItem('matricula');
+    
+        if (nome && matricula) {
+            setFormData((prevData) => ({
+                ...prevData,
+                nome,
+                matricula,
+            }));
+        }
+    }, []);
+    
+    
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -105,11 +120,11 @@ const FormParadas = () => {
                     <div className="form-pair">
                         <div className="form-group">
                             <label htmlFor="nome">Nome</label>
-                            <input type="text" name="nome" value={formData.nome} onChange={handleChange} />
+                            <input type="text" name="nome" readOnly value={formData.nome} onChange={handleChange} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="matricula">Matricula</label>
-                            <input type="number" name="matricula" value={formData.matricula} onChange={handleChange} />
+                            <input type="number" name="matricula" readOnly value={formData.matricula} onChange={handleChange} />
                         </div>
                     </div>
                     <div className="form-pair">
