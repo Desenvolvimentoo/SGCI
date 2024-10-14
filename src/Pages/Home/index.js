@@ -46,7 +46,7 @@ const Home = () => {
 
             <div className="form">
                 <div className="icon-container">
-                    <div className="button LarFlorestal" onClick={() => redirect('http://192.168.156.17:3000/home')}>
+                    <div className="button LarFlorestal" onClick={() => redirect('/')}>
                         <img src={lar_florestal} alt="Lar Florestal" className="button-image" />
                     </div>
                     <p>Lar Florestal</p>
@@ -64,13 +64,13 @@ const Home = () => {
                     <p>iStop</p>
                 </div>
                 <div className="icon-container">
-                    <div className="button Caldeira" onClick={() => redirect('/FormCaldeira')}>
+                    <div className="button Caldeira" onClick={() => redirect('/')}>
                         <img src={caldeira} alt="Produção Caldeira" className="button-image" />
                     </div>
                     <p>Produção Caldeira</p>
                 </div>
                 <div className="icon-container">
-                    <div className="button iStop" onClick={() => redirect('/FormCavaco')}>
+                    <div className="button iStop" onClick={() => redirect('/')}>
                         <img src={picador} alt="Produção Cavaco" className="button-image" />
                     </div>
                     <p>Produção Cavaco</p>
