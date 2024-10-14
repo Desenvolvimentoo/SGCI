@@ -5,9 +5,20 @@ import lar from './img/logo-lar.png';
 import caldeira from './img/boiler.png';
 import picador from './img/picador-de-madeira.png';
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './stilo.css';
 
 const Home = () => {
+    const [nome, setNome] = useState('');
+
+    useEffect(() => {
+        const nomeUsuario = localStorage.getItem('nome');
+        if (nomeUsuario) {
+            const primeiroNome = nomeUsuario.split(' ')[0]; 
+            setNome(primeiroNome);
+        }
+    }, []);
+    
     function redirect(url) {
         window.location.href = url;
     }
@@ -26,9 +37,13 @@ const Home = () => {
 
     return (
         <div className="sgci">
-        <div className="title-container">
-            <h1 className="title">Sistema de gerenciamento do complexo Industrial</h1>
-        </div>
+            <div className="user-info">
+                {nome && <span className="user-name">Bem-vindo(a), {nome}</span>}
+            </div>
+            <div className="title-container">
+                <h1 className="title">Sistema de gerenciamento do complexo Industrial</h1>
+            </div>
+
             <div className="form">
                 <div className="icon-container">
                     <div className="button LarFlorestal" onClick={() => redirect('http://192.168.156.17:3000/home')}>
@@ -56,7 +71,7 @@ const Home = () => {
                 </div>
                 <div className="icon-container">
                     <div className="button iStop" onClick={() => redirect('/FormCavaco')}>
-                        <img src={picador} alt="Produção Caldeira" className="button-image" />
+                        <img src={picador} alt="Produção Cavaco" className="button-image" />
                     </div>
                     <p>Produção Cavaco</p>
                 </div>
@@ -68,17 +83,17 @@ const Home = () => {
                 <div className="icon-container">
                     <div className="button iStop" onClick={() => redirect('')}>
                     </div>
-                    <p>Sistema</p>
+                    <p>Desenvolvimento</p>
                 </div>
                 <div className="icon-container">
                     <div className="button iStop" onClick={() => redirect('')}>
                     </div>
-                    <p>Sistema</p>
+                    <p>Desenvolvimento</p>
                 </div>
                 <div className="icon-container">
                     <div className="button iStop" onClick={() => redirect('')}>
                     </div>
-                    <p>Sistema</p>
+                    <p>Desenvolvimento</p>
                 </div>
                 <div className="logo-container">
                     <img src={lar} alt="Logo Lar" className="lar-logo" />

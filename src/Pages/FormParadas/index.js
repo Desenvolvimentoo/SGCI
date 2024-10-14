@@ -6,6 +6,7 @@ import voltar from './img/voltar.png';
 const FormParadas = () => {
     const api = 'http://192.168.156.17:3001';
     const [tags, setTags] = useState([]);
+    const currentYear = new Date().getFullYear();
     const [formData, setFormData] = useState({
         setor: '',
         consequencia: '',
@@ -22,16 +23,27 @@ const FormParadas = () => {
     });
 
     const [successMessage, setSuccessMessage] = useState('');
+    
 
     useEffect(() => {
-        axios.get(api+'/tags')
+        axios.get(api + '/tags')
             .then(response => {
-                setTags(response.data);
+                if (Array.isArray(response.data)) {
+                    const validTags = response.data.filter(tag => tag !== null && tag !== undefined);
+                    const sortedTags = validTags.sort((a, b) =>
+                        a.toString().localeCompare(b.toString(), 'pt-BR', { sensitivity: 'base' })
+                    );
+                    setTags(sortedTags);
+                } else {
+                    console.error('Resposta inesperada:', response.data);
+                }
             })
             .catch(error => {
                 console.error('Erro ao buscar tags:', error);
             });
     }, []);
+    
+    
 
     useEffect(() => {
         const nome = localStorage.getItem('nome');
@@ -57,8 +69,7 @@ const FormParadas = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Validação: Verifica se todos os campos estão preenchidos
+    
         const {
             setor,
             consequencia,
@@ -73,16 +84,36 @@ const FormParadas = () => {
             matricula,
             responsavel
         } = formData;
-
+    
+        // Verificar se as datas estão no ano atual
+        const yearDataInicial = new Date(data_inicial).getFullYear();
+        const yearDataFinal = new Date(data_final).getFullYear();
+    
+        if (yearDataInicial !== currentYear || yearDataFinal !== currentYear) {
+            alert(`As datas devem estar no ano de ${currentYear}.`);
+            return;
+        }
+    
+        // Validação: Verifica se todos os campos estão preenchidos
         if (
-            !setor || !consequencia || !turno || !tag || !data_inicial || !data_final || 
+            !setor || !consequencia || !turno || !tag || !data_inicial || !data_final ||
             !hora_inicial || !hora_final || !observacoes || !nome || !matricula || !responsavel
         ) {
             alert('Por favor, preencha todos os campos.');
             return;
         }
-
-        axios.post(api+'/paradas', formData)
+    
+        // Formatação correta das datas e horas
+        const dataInicialFormatada = new Date(data_inicial).toISOString().split('T')[0]; // 'YYYY-MM-DD'
+        const dataFinalFormatada = new Date(data_final).toISOString().split('T')[0]; // 'YYYY-MM-DD'
+    
+        const formDataFormatada = {
+            ...formData,
+            data_inicial: dataInicialFormatada,
+            data_final: dataFinalFormatada,
+        };
+    
+        axios.post(api + '/paradas', formDataFormatada)
             .then(response => {
                 console.log('Dados salvos com sucesso:', response.data);
                 setFormData({
@@ -95,9 +126,9 @@ const FormParadas = () => {
                     hora_inicial: '',
                     hora_final: '',
                     observacoes: '',
-                    nome: '',           
-                    matricula: '',      
-                    responsavel: ''  
+                    nome: '',
+                    matricula: '',
+                    responsavel: ''
                 });
                 setSuccessMessage('Dados inseridos com sucesso!');
                 setTimeout(() => setSuccessMessage(''), 3000);
@@ -106,6 +137,8 @@ const FormParadas = () => {
                 console.error('Erro ao salvar dados:', error);
             });
     };
+    
+    
 
     return (
         <div>
@@ -136,6 +169,8 @@ const FormParadas = () => {
                                 <option value="Biodiesel">Biodiesel</option>
                                 <option value="Caldeira">Caldeira</option>
                                 <option value="Cogeração">Cogeração</option>
+                                <option value="Operacional">Operacional</option>
+                                <option value="Expedição">Expedição</option>
                                 <option value="Operacional">Operacional</option>
                             </select>
                         </div>
