@@ -113,17 +113,54 @@ useEffect(() => {
         <h2>Registro de Produção de Cavaco</h2>
         
         <form onSubmit={handleSubmit}>
-
-          <div className="form-group">
-            <label htmlFor="nome">Usuário</label>
-            <input type="text" id="nome" readOnly value={formData.nome} onChange={handleChange} />
+        <div className="form-pair">
+              <div className="form-group">
+                  <label htmlFor="data">Data</label>
+                  <input 
+                      type="date" 
+                      id="data" 
+                      name='data'
+                      value={formData.data} 
+                      onChange={handleChange} 
+                  />
+              </div>
+              <div className="form-group">
+                  <label htmlFor="turno">Turno</label>
+                  <select  
+                  id="turno"
+                  name='turno'
+                  value={formData.turno}                         
+                  onChange={handleChange} >
+                  <option value=''>Selecionar</option>
+                  <option value='A'>A</option>
+                  <option value='B'>B</option>
+                  <option value='C'>C</option>
+                  </select>
+              </div>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="data">Data</label>
-            <input type="date" id="data" value={formData.data} onChange={handleChange} />
-          </div>
-
+          <div className="form-pair">
+              <div className="form-group">
+                  <label htmlFor="nome">Usuário</label>
+                  <input 
+                      type="text" 
+                      name="nome" 
+                      readOnly
+                      value={formData.nome} 
+                      onChange={handleChange} 
+                  />
+              </div>
+              <div className="form-group">
+                  <label htmlFor="matricula">Matrícula</label>
+                  <input 
+                      type="number" 
+                      name="matricula" 
+                      readOnly
+                      value={formData.matricula} 
+                      onChange={handleChange} 
+                  />
+              </div>
+            </div>
+          <div className="form-pair">
           <div className="form-group">
             <label htmlFor="consumo_cavaco">Consumo de Cavaco (Kg)</label>
             <input type="number" id="consumo_cavaco" value={formData.consumo_cavaco} onChange={handleChange} min="0" step="any" />
@@ -133,7 +170,8 @@ useEffect(() => {
             <label htmlFor="consumo_bagaco">Consumo de Bagaço (Kg)</label>
             <input type="number" id="consumo_bagaco" value={formData.consumo_bagaco} onChange={handleChange} min="0" step="any" />
           </div>
-
+          </div>
+          <div className="form-pair">
           <div className="form-group">
             <label htmlFor="consumo_residuo">Consumo de Resíduo (Kg)</label>
             <input type="number" id="consumo_residuo" value={formData.consumo_residuo} onChange={handleChange} min="0" step="any" />
@@ -143,7 +181,8 @@ useEffect(() => {
             <label htmlFor="lenha_utilizada">Lenha Utilizada (t)</label>
             <input type="number" id="lenha_utilizada" value={formData.lenha_utilizada} onChange={handleChange} min="0" step="any" />
           </div>
-
+          </div>
+          <div className="form-pair">
           <div className="form-group">
             <label htmlFor="cavaco_produzido">Cavaco Produzido (t)</label>
             <input type="number" id="cavaco_produzido" value={formData.cavaco_produzido} onChange={handleChange} min="0" step="any" />
@@ -153,37 +192,22 @@ useEffect(() => {
             <label htmlFor="consumo_energia_cavaco">Consumo de energia (Kw)</label>
             <input type="number" id="consumo_energia_cavaco" value={formData.consumo_energia_cavaco} onChange={handleChange} min="0" step="any" />
           </div>
-
+          </div>
+          <div className="form-pair">
           <div className="form-group">
             <label htmlFor="outros_custos">Outros Custos (R$)</label>
             <input type="number" id="outros_custos" value={formData.outros_custos} onChange={handleChange} min="0" step="any" />
-          </div>
-
-          <div className="obs-group">
-            <label htmlFor="observacoes">Observações</label>
-            <textarea id="observacoes" value={formData.observacoes} onChange={handleChange} rows="4"></textarea>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="matricula">Matrícula</label>
-            <input type="number" id="matricula" value={formData.matricula} onChange={handleChange} min="0" step="1" />
           </div>
 
           <div className="form-group">
             <label htmlFor="responsavel">Responsável pelo Turno</label>
             <input type="text" id="responsavel" value={formData.responsavel} onChange={handleChange} />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="turno">Turno</label>
-            <select id="turno" value={formData.turno} onChange={handleChange}>
-              <option value="">Selecionar</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-            </select>
           </div>
-
+          <div className="obs-group">
+            <label htmlFor="observacoes">Observações</label>
+            <textarea id="observacoes" value={formData.observacoes} onChange={handleChange} rows="4"></textarea>
+          </div>
           <div className="buttons">
             <button type="submit">Salvar</button>
           </div>

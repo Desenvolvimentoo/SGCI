@@ -23,6 +23,9 @@ const FormParadas = () => {
     });
 
     const [successMessage, setSuccessMessage] = useState('');
+    const [filteredTags, setFilteredTags] = useState([]);
+    const [searchTag, setSearchTag] = useState('');
+
     
 
     useEffect(() => {
@@ -34,6 +37,7 @@ const FormParadas = () => {
                         a.toString().localeCompare(b.toString(), 'pt-BR', { sensitivity: 'base' })
                     );
                     setTags(sortedTags);
+                    setFilteredTags(sortedTags);
                 } else {
                     console.error('Resposta inesperada:', response.data);
                 }
@@ -42,6 +46,12 @@ const FormParadas = () => {
                 console.error('Erro ao buscar tags:', error);
             });
     }, []);
+    
+    const handleSearchChange = (e) => {
+        const searchValue = e.target.value.toLowerCase();
+        setSearchTag(searchValue);
+        setFilteredTags(tags.filter(tag => tag.toLowerCase().includes(searchValue)));
+    };
     
     
 
@@ -84,8 +94,7 @@ const FormParadas = () => {
             matricula,
             responsavel
         } = formData;
-    
-        // Verificar se as datas estão no ano atual
+
         const yearDataInicial = new Date(data_inicial).getFullYear();
         const yearDataFinal = new Date(data_final).getFullYear();
     
@@ -93,8 +102,7 @@ const FormParadas = () => {
             alert(`As datas devem estar no ano de ${currentYear}.`);
             return;
         }
-    
-        // Validação: Verifica se todos os campos estão preenchidos
+
         if (
             !setor || !consequencia || !turno || !tag || !data_inicial || !data_final ||
             !hora_inicial || !hora_final || !observacoes || !nome || !matricula || !responsavel
@@ -102,10 +110,9 @@ const FormParadas = () => {
             alert('Por favor, preencha todos os campos.');
             return;
         }
-    
-        // Formatação correta das datas e horas
-        const dataInicialFormatada = new Date(data_inicial).toISOString().split('T')[0]; // 'YYYY-MM-DD'
-        const dataFinalFormatada = new Date(data_final).toISOString().split('T')[0]; // 'YYYY-MM-DD'
+
+        const dataInicialFormatada = new Date(data_inicial).toISOString().split('T')[0]; 
+        const dataFinalFormatada = new Date(data_final).toISOString().split('T')[0]; 
     
         const formDataFormatada = {
             ...formData,
@@ -138,6 +145,15 @@ const FormParadas = () => {
             });
     };
     
+    const handleFocus = () => {
+        document.querySelector('.options-container').style.display = 'block';
+    };
+    
+    const handleBlur = () => {
+        setTimeout(() => {
+            document.querySelector('.options-container').style.display = 'none';
+        }, 200); 
+    };
     
 
     return (
@@ -171,7 +187,6 @@ const FormParadas = () => {
                                 <option value="Cogeração">Cogeração</option>
                                 <option value="Operacional">Operacional</option>
                                 <option value="Expedição">Expedição</option>
-                                <option value="Operacional">Operacional</option>
                             </select>
                         </div>
 
@@ -199,12 +214,32 @@ const FormParadas = () => {
 
                         <div className="form-group">
                             <label htmlFor="tag">TAG</label>
-                            <select name="tag" value={formData.tag} onChange={handleChange}>
-                                <option value="">Selecionar</option>
-                                {tags.map((tag, index) => (
-                                    <option key={index} value={tag}>{tag}</option>
-                                ))}
-                            </select>
+                            <div className="custom-select">
+                            <input 
+                                type="text" 
+                                placeholder="Selecione uma tag..." 
+                                value={searchTag} 
+                                onChange={handleSearchChange} 
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                                className="search-input"
+                            />
+
+                                <div className="options-container">
+                                    {filteredTags.map((tag, index) => (
+                                        <div 
+                                            key={index} 
+                                            className="option-item" 
+                                            onClick={() => {
+                                                setFormData({ ...formData, tag });
+                                                setSearchTag(tag);
+                                            }}
+                                        >
+                                            {tag}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
