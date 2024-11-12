@@ -38,7 +38,7 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ matricula, senha })
             });
-    
+        
             const data = await response.json();
             console.log(data); 
     
@@ -49,8 +49,21 @@ const Login = () => {
                 localStorage.setItem('nome', data.nome);
                 localStorage.setItem('loginTime', new Date().getTime()); 
     
+                const setorResponse = await fetch('http://192.168.156.17:3001/getSetor', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ matricula })
+                });
+                const setorData = await setorResponse.json();
+    
+                if (setorData.setor) {
+                    localStorage.setItem('setor', setorData.setor); 
+                } else {
+                    setMessage('Setor não encontrado');
+                }
+    
                 navigate('/home', { replace: true });
-            
+    
                 setTimeout(() => {
                     window.location.reload();
                 }, 100);

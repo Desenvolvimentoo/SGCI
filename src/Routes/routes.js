@@ -15,6 +15,7 @@ export const Private = ({ isLoggedIn, Component }) => {
   return isLoggedIn ? <Component /> : <Login />;
 }
 
+
 const RoutesApp = () => {
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   return (
